@@ -7,10 +7,12 @@ import Transferencia from './screens/Transferencia.jsx'
 import Envio from './screens/Envio.jsx'
 import Confirmacion from './screens/Confirmacion.jsx'
 import Recibo from './screens/Recibo.jsx'
-import EstadoTransferenciasList from './screens/EstadoTransferenciasList.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 import ComisionesInfo from './screens/ComisionesInfo.jsx'
 import NuevaCuenta from './screens/NuevaCuenta.jsx'
+import CurrencyPicker from './screens/CurrencyPicker.jsx'
+import { buildTransferStatus } from './data/transferStatus.js'
+import { CURRENCIES } from './data/currencies.js'
 
 const MAX_DIGITS = 9
 
@@ -20,13 +22,15 @@ export default function App() {
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
   const [selectedTransfer, setSelectedTransfer] = useState(null)
-  const [transferBack, setTransferBack] = useState('home')
   const [comisionesOpen, setComisionesOpen] = useState(false)
+  const [currencyPickerOpen, setCurrencyPickerOpen] = useState(false)
+  const [currency, setCurrency] = useState(CURRENCIES[0])
 
   function reset() {
     setSheetOpen(false)
     setContact(null)
     setAmount('')
+    setCurrency(CURRENCIES[0])
     setScreen('home')
   }
 
@@ -45,8 +49,19 @@ export default function App() {
               setScreen('transferencia')
             }}
           />
+        ) : comisionesOpen ? (
+          <ComisionesInfo onClose={() => setComisionesOpen(false)} />
         ) : (
-          comisionesOpen && <ComisionesInfo onClose={() => setComisionesOpen(false)} />
+          currencyPickerOpen && (
+            <CurrencyPicker
+              current={currency}
+              onClose={() => setCurrencyPickerOpen(false)}
+              onSelect={(c) => {
+                setCurrency(c)
+                setCurrencyPickerOpen(false)
+              }}
+            />
+          )
         )
       }
     >
@@ -57,7 +72,6 @@ export default function App() {
           onTransferir={() => setSheetOpen(true)}
           onSelectTransfer={(t) => {
             setSelectedTransfer(t)
-            setTransferBack('home')
             setScreen('estadoTransferencia')
           }}
         />
@@ -88,6 +102,8 @@ export default function App() {
         <Envio
           contact={contact}
           amount={amount}
+          currency={currency}
+          onCurrencyClick={() => setCurrencyPickerOpen(true)}
           onDigit={addAmountDigit}
           onBackspace={() => setAmount((a) => a.slice(0, -1))}
           onBack={() => setScreen('transferencia')}
@@ -110,26 +126,16 @@ export default function App() {
         <Recibo
           contact={contact}
           amount={amount}
-          onVerEstado={() => setScreen('estadoTransferenciasList')}
+          onVerEstado={() => {
+            setSelectedTransfer(buildTransferStatus(contact, amount))
+            setScreen('estadoTransferencia')
+          }}
           onDescargar={() => {}}
           onInfoClick={() => setComisionesOpen(true)}
         />
       )}
 
-      {screen === 'estadoTransferenciasList' && (
-        <EstadoTransferenciasList
-          onBack={reset}
-          onSelectTransfer={(t) => {
-            setSelectedTransfer(t)
-            setTransferBack('estadoTransferenciasList')
-            setScreen('estadoTransferencia')
-          }}
-        />
-      )}
-
-      {screen === 'estadoTransferencia' && (
-        <EstadoTransferencia transfer={selectedTransfer} onBack={() => setScreen(transferBack)} />
-      )}
+      {screen === 'estadoTransferencia' && <EstadoTransferencia transfer={selectedTransfer} onBack={reset} />}
     </PhoneFrame>
   )
 }

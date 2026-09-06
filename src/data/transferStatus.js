@@ -34,3 +34,45 @@ export const TRANSFERS = [
 ]
 
 export const TRACKED_TRANSFER = TRANSFERS[0]
+
+// Builds a fresh "Estado de la transferencia" for the transfer the user just
+// sent (Recibo's "Ver estado de transferencia" button) — the amount/contact
+// are real, the timestamps and steps follow the same shape as TRANSFERS.
+export function buildTransferStatus(contact, amountUsd) {
+  const now = new Date()
+  const at = (offsetMin) =>
+    new Date(now.getTime() + offsetMin * 60000).toLocaleTimeString('es-CO', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })
+  const nombre = contact?.name ?? 'tu contacto'
+  const primerNombre = nombre.split(' ')[0]
+
+  return {
+    contactName: nombre,
+    account: contact?.account ?? '',
+    amount: Number(amountUsd) || 0,
+    date: now
+      .toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' })
+      .replace('.', '')
+      .toUpperCase(),
+    eta: 'Llega hoy antes de las 6:00 p.m.',
+    steps: [
+      { label: 'Enviada', time: at(-6), description: 'Tu transferencia salió de tu cuenta.', status: 'done' },
+      { label: 'Procesando', time: at(-4), description: 'Banco GALA está procesando el envío.', status: 'done' },
+      {
+        label: 'En camino',
+        time: at(-1),
+        description: `El dinero va camino a la cuenta de ${primerNombre}.`,
+        status: 'current',
+      },
+      {
+        label: 'Entregada',
+        time: 'Estimado: hoy',
+        description: `${nombre} recibirá el dinero en su cuenta.`,
+        status: 'pending',
+      },
+    ],
+  }
+}

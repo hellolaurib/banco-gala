@@ -104,7 +104,7 @@
     overflow-x: auto;
   }
 
-  svg.flow { display: block; width: 100%; height: auto; min-width: 920px; }
+  svg.flow { display: block; width: 100%; height: auto; min-width: 1180px; }
 
   figcaption {
     margin-top: 14px;
@@ -196,7 +196,7 @@
 
   <figure>
     <div class="diagram-frame">
-      <svg class="flow" viewBox="0 0 1520 640" role="img" aria-label="Diagrama de flujo: Sign in lleva a Home; desde Home, Transferir abre Envía o recibe, que lleva a Transferencia, Envío, Confirmación y Recibo; Recibo baja a Estado de transferencias y de ahí a Estado de la transferencia; Confirmación puede cancelar y volver a Home; Home también accede directo a Estado de la transferencia por una transferencia en curso; y ese detalle vuelve a Home.">
+      <svg class="flow" viewBox="0 0 1980 640" role="img" aria-label="Diagrama de flujo: Sign in lleva a Home; desde Home, Transferir abre Envía o recibe, que lleva a Transferencia, Envío, Confirmación y Recibo; Recibo baja a Estado de transferencias y de ahí a Estado de la transferencia; Confirmación puede cancelar y volver a Home; Home también accede directo a Estado de la transferencia por una transferencia en curso; y ese detalle vuelve a Home.">
         <defs>
           <marker id="arrAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 Z" fill="var(--accent)" />
@@ -214,50 +214,50 @@
 
         <!-- Phase eyebrows -->
         <text class="eyebrow-svg" x="114" y="112" text-anchor="middle">Autenticación</text>
-        <text class="eyebrow-svg" x="326" y="112" text-anchor="middle">Inicio</text>
-        <text class="eyebrow-svg" x="750" y="112" text-anchor="middle">Elegir y enviar</text>
-        <text class="eyebrow-svg" x="1280" y="112" text-anchor="middle">Confirmar</text>
-        <text class="eyebrow-svg" x="1174" y="414" text-anchor="middle">Seguimiento</text>
+        <text class="eyebrow-svg" x="404" y="112" text-anchor="middle">Inicio</text>
+        <text class="eyebrow-svg" x="984" y="112" text-anchor="middle">Elegir y enviar</text>
+        <text class="eyebrow-svg" x="1709" y="112" text-anchor="middle">Confirmar</text>
+        <text class="eyebrow-svg" x="1564" y="414" text-anchor="middle">Seguimiento</text>
 
         <!-- Arc 1: Confirmación -> Home (cancelar) -->
-        <polyline points="1174,130 1174,70 326,70 326,130" fill="none" stroke="var(--negative)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrNegative)" />
-        <text class="arrow-label" x="750" y="60" text-anchor="middle" fill="var(--negative)">Cancelar transferencia</text>
+        <polyline points="1564,130 1564,70 404,70 404,130" fill="none" stroke="var(--negative)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrNegative)" />
+        <text class="arrow-label" x="984" y="60" text-anchor="middle" fill="var(--negative)">Cancelar transferencia</text>
 
         <!-- Arc 2: Home -> Estado de la transferencia (acceso directo) -->
-        <polyline points="300,226 300,320 930,320 930,430" fill="none" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrAccent2)" />
-        <text class="arrow-label" x="316" y="312" fill="var(--accent-2)">Ver estado — transferencia en curso</text>
+        <polyline points="380,226 380,320 1210,320 1210,430" fill="none" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrAccent2)" />
+        <text class="arrow-label" x="795" y="312" text-anchor="middle" fill="var(--accent-2)">Ver estado — transferencia en curso</text>
 
         <!-- Arc 3: Estado de la transferencia -> Home (volver) -->
-        <polyline points="994,526 994,580 360,580 360,226" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrMuted)" />
-        <text class="arrow-label" x="677" y="596" text-anchor="middle" fill="var(--muted)">Volver</text>
+        <polyline points="1310,526 1310,580 440,580 440,226" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrMuted)" />
+        <text class="arrow-label" x="875" y="596" text-anchor="middle" fill="var(--muted)">Volver</text>
 
         <!-- Main spine row 1 -->
-        <line x1="204" y1="178" x2="236" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label" x="220" y="170" text-anchor="middle" fill="var(--ink-2)">Face ID</text>
+        <line x1="204" y1="178" x2="314" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="259" y="170" text-anchor="middle" fill="var(--ink-2)">Face ID</text>
 
-        <line x1="416" y1="178" x2="448" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label" x="432" y="170" text-anchor="middle" fill="var(--ink-2)">Transferir</text>
+        <line x1="494" y1="178" x2="604" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="549" y="170" text-anchor="middle" fill="var(--ink-2)">Transferir</text>
 
-        <line x1="628" y1="178" x2="660" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label" x="644" y="170" text-anchor="middle" fill="var(--ink-2)">Envía</text>
+        <line x1="784" y1="178" x2="894" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="839" y="170" text-anchor="middle" fill="var(--ink-2)">Envía</text>
 
-        <line x1="840" y1="178" x2="872" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label tight" x="856" y="168" text-anchor="middle" fill="var(--ink-2)">Elegir contacto</text>
+        <line x1="1074" y1="178" x2="1184" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="1129" y="170" text-anchor="middle" fill="var(--ink-2)">Elegir contacto</text>
 
-        <line x1="1052" y1="178" x2="1084" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label" x="1068" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
+        <line x1="1364" y1="178" x2="1474" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="1419" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
 
-        <line x1="1264" y1="178" x2="1296" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label" x="1280" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
+        <line x1="1654" y1="178" x2="1764" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="1709" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
 
         <!-- Recibo -> Estado de transferencias (down) -->
-        <line x1="1386" y1="226" x2="1386" y2="430" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label tight" x="1396" y="320" fill="var(--ink-2)">Ver estado de</text>
-        <text class="arrow-label tight" x="1396" y="334" fill="var(--ink-2)">transferencia</text>
+        <line x1="1854" y1="226" x2="1854" y2="430" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label tight" x="1864" y="320" fill="var(--ink-2)">Ver estado de</text>
+        <text class="arrow-label tight" x="1864" y="334" fill="var(--ink-2)">transferencia</text>
 
         <!-- Estado de transferencias -> Estado de la transferencia (left) -->
-        <line x1="1296" y1="478" x2="1052" y2="478" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
-        <text class="arrow-label tight" x="1174" y="468" text-anchor="middle" fill="var(--ink-2)">Seleccionar transferencia</text>
+        <line x1="1764" y1="478" x2="1364" y2="478" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label tight" x="1564" y="468" text-anchor="middle" fill="var(--ink-2)">Seleccionar transferencia</text>
 
         <!-- ============ NODES ============ -->
 
@@ -272,75 +272,75 @@
 
         <!-- 2 Home -->
         <g>
-          <rect x="236" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M236,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="326" y="184" text-anchor="middle">Balance, accesos y</text>
-          <text class="node-sub" x="326" y="198" text-anchor="middle">transferencias recientes</text>
+          <rect x="314" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M314,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="404" y="184" text-anchor="middle">Balance, accesos y</text>
+          <text class="node-sub" x="404" y="198" text-anchor="middle">transferencias recientes</text>
         </g>
-        <text class="node-title" x="326" y="148" text-anchor="middle">Home</text>
+        <text class="node-title" x="404" y="148" text-anchor="middle">Home</text>
 
         <!-- 3 Envía o recibe -->
         <g>
-          <rect x="448" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M448,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="538" y="184" text-anchor="middle">Hoja inferior:</text>
-          <text class="node-sub" x="538" y="198" text-anchor="middle">Envía o Recibe</text>
+          <rect x="604" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M604,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="694" y="184" text-anchor="middle">Hoja inferior:</text>
+          <text class="node-sub" x="694" y="198" text-anchor="middle">Envía o Recibe</text>
         </g>
-        <text class="node-title" x="538" y="148" text-anchor="middle">Envía o recibe</text>
+        <text class="node-title" x="694" y="148" text-anchor="middle">Envía o recibe</text>
 
         <!-- 4 Transferencia -->
         <g>
-          <rect x="660" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M660,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="750" y="184" text-anchor="middle">Elegir contacto o</text>
-          <text class="node-sub" x="750" y="198" text-anchor="middle">buscar cuenta</text>
+          <rect x="894" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M894,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="984" y="184" text-anchor="middle">Elegir contacto o</text>
+          <text class="node-sub" x="984" y="198" text-anchor="middle">buscar cuenta</text>
         </g>
-        <text class="node-title" x="750" y="148" text-anchor="middle">Transferencia</text>
+        <text class="node-title" x="984" y="148" text-anchor="middle">Transferencia</text>
 
         <!-- 5 Envío -->
         <g>
-          <rect x="872" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M872,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="962" y="184" text-anchor="middle">Monto en USD,</text>
-          <text class="node-sub" x="962" y="198" text-anchor="middle">comisión y conversión</text>
+          <rect x="1184" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1184,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="1274" y="184" text-anchor="middle">Monto en USD,</text>
+          <text class="node-sub" x="1274" y="198" text-anchor="middle">comisión y conversión</text>
         </g>
-        <text class="node-title" x="962" y="148" text-anchor="middle">Envío</text>
+        <text class="node-title" x="1274" y="148" text-anchor="middle">Envío</text>
 
         <!-- 6 Confirmación -->
         <g>
-          <rect x="1084" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M1084,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="1174" y="184" text-anchor="middle">Revisar datos,</text>
-          <text class="node-sub" x="1174" y="198" text-anchor="middle">comisión y valor total</text>
+          <rect x="1474" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1474,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="1564" y="184" text-anchor="middle">Revisar datos,</text>
+          <text class="node-sub" x="1564" y="198" text-anchor="middle">comisión y valor total</text>
         </g>
-        <text class="node-title" x="1174" y="148" text-anchor="middle">Confirmación</text>
+        <text class="node-title" x="1564" y="148" text-anchor="middle">Confirmación</text>
 
         <!-- 7 Recibo -->
         <g>
-          <rect x="1296" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M1296,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
-          <text class="node-sub" x="1386" y="184" text-anchor="middle">Éxito de la</text>
-          <text class="node-sub" x="1386" y="198" text-anchor="middle">transferencia</text>
+          <rect x="1764" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1764,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="1854" y="184" text-anchor="middle">Éxito de la</text>
+          <text class="node-sub" x="1854" y="198" text-anchor="middle">transferencia</text>
         </g>
-        <text class="node-title" x="1386" y="148" text-anchor="middle">Recibo</text>
+        <text class="node-title" x="1854" y="148" text-anchor="middle">Recibo</text>
 
         <!-- 9 Estado de la transferencia (bottom, detail) -->
         <g>
-          <rect x="872" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M872,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
-          <text class="node-sub" x="962" y="484" text-anchor="middle">Línea de tiempo de</text>
-          <text class="node-sub" x="962" y="498" text-anchor="middle">entrega paso a paso</text>
+          <rect x="1184" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1184,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
+          <text class="node-sub" x="1274" y="484" text-anchor="middle">Línea de tiempo de</text>
+          <text class="node-sub" x="1274" y="498" text-anchor="middle">entrega paso a paso</text>
         </g>
-        <text class="node-title" x="962" y="448" text-anchor="middle">Estado de la transferencia</text>
+        <text class="node-title" x="1274" y="448" text-anchor="middle">Estado de la transferencia</text>
 
         <!-- 8 Estado de transferencias (bottom, list) -->
         <g>
-          <rect x="1296" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
-          <path d="M1296,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
-          <text class="node-sub" x="1386" y="484" text-anchor="middle">Lista de envíos</text>
-          <text class="node-sub" x="1386" y="498" text-anchor="middle">con su estado</text>
+          <rect x="1764" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1764,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
+          <text class="node-sub" x="1854" y="484" text-anchor="middle">Lista de envíos</text>
+          <text class="node-sub" x="1854" y="498" text-anchor="middle">con su estado</text>
         </g>
-        <text class="node-title" x="1386" y="448" text-anchor="middle">Estado de transferencias</text>
+        <text class="node-title" x="1854" y="448" text-anchor="middle">Estado de transferencias</text>
       </svg>
     </div>
     <figcaption>

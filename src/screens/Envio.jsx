@@ -1,21 +1,28 @@
 import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
-import { magnifyingGlass, arrowTransfer, repeat, infoIcon } from '../assets/figma/index.js'
+import { arrowTransfer, repeat, infoIcon, currencyEllipse, caretRight } from '../assets/figma/index.js'
 import { CONVERSION, COMMISSION_RATE } from '../data/contacts.js'
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫']
 const RATE = Number(CONVERSION.compra.replace('.', ''))
 
 // Traced 1:1 from the Figma "Envio" frame (375×864) — Laura reworked this
-// screen so the amount is entered in USD and converted to COP for the
-// recipient, replacing the first pass's COP-only entry.
-export default function Envio({ contact, amount, onDigit, onBackspace, onSend, onBack, onInfoClick }) {
+// screen so the amount is entered in USD and converted to a destination
+// currency for the recipient, picked from the "Money" dropdown (the old
+// "Buscar cuentas" pill was replaced by it in her latest Figma pass). The
+// dropdown's option list itself is rendered by App.jsx via PhoneFrame's
+// overlay slot (CurrencyPicker) — a local absolutely-positioned dropdown here
+// was losing clicks to the numeric keypad below it, so picking a currency
+// now opens that overlay instead of an inline list.
+export default function Envio({ contact, amount, onDigit, onBackspace, onSend, onBack, onInfoClick, currency, onCurrencyClick }) {
   const total = Number(amount) || 0
   const commission = total * COMMISSION_RATE
   const netUsd = total - commission
   const usd = amount ? total.toLocaleString('es-CO') : '0'
-  const cop = amount ? (netUsd * RATE).toLocaleString('es-CO', { maximumFractionDigits: 0 }) : '0'
+  const recipientAmount = amount
+    ? Math.round(netUsd * currency.rate).toLocaleString('es-CO', { maximumFractionDigits: 0 })
+    : '0'
 
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">
@@ -56,12 +63,20 @@ export default function Envio({ contact, amount, onDigit, onBackspace, onSend, o
               <img alt="" src={infoIcon} className="size-3" />
             </button>
           </div>
-          <p className="text-[10px] text-ink-3 text-center">Tu destinatario recibirá ${cop} COP</p>
-        </div>
+          <p className="text-[10px] text-ink-3 text-center">
+            Tu destinatario recibirá ${recipientAmount} {currency.code}
+          </p>
 
-        <div className="absolute bg-white border-[0.5px] border-principal flex items-center gap-1.5 h-9 left-[116px] pl-3 pr-9 py-[17px] rounded-[41px] top-[281px] w-[139px] whitespace-nowrap">
-          <img alt="" src={magnifyingGlass} className="size-[15px] shrink-0" />
-          <p className="text-[14px] leading-[23px] text-principal">Buscar cuentas</p>
+          <button
+            onClick={onCurrencyClick}
+            className="bg-[rgba(172,172,172,0.27)] flex items-center gap-1.5 h-9 pl-[18px] pr-3 rounded-[41px]"
+          >
+            {currency.code === 'COP' && <img alt="" src={currencyEllipse} className="size-[14px] rounded-full" />}
+            <span className="text-[10px] text-principal whitespace-nowrap">
+              {currency.code} - ${recipientAmount}
+            </span>
+            <img alt="" src={caretRight} className="size-6 rotate-90" />
+          </button>
         </div>
 
         <div className="absolute left-0 top-[655px] w-full">
