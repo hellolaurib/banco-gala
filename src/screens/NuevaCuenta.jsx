@@ -2,14 +2,18 @@ import { useState } from 'react'
 import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
-import { magnifyingGlass, caretRightSmall } from '../assets/figma/index.js'
+import { caretRightSmall } from '../assets/figma/index.js'
 
-// Traced 1:1 from the Figma "Inscribir producto" frame (375×864) — step 2 of
+// Traced from the Figma "Inscribir producto" frame (375×864) — step 2 of
 // adding a new account (after picking Colombia in PaisSelector). Replaces
 // the first hand-built version of this screen (nombre/tipo de cuenta toggle)
 // now that Laura designed the real fields herself: documento, an optional
 // nickname, a bank dropdown (opened via onBancoClick, an overlay — see
-// BancoPicker.jsx), and account number.
+// BancoPicker.jsx), and account number. Two deliberate deviations from the
+// Figma frame, per Laura's own request: the header reads "Agregar cuenta"
+// (not "Transferencias", which the Figma copy-pasted from the sibling
+// contact-list screen), and the decorative "Buscar cuentas" search bar
+// at the top is dropped — this screen isn't a list, there's nothing to search.
 export default function NuevaCuenta({ onBack, onContinue, banco, onBancoClick }) {
   const [documento, setDocumento] = useState('')
   const [nickname, setNickname] = useState('')
@@ -43,17 +47,11 @@ export default function NuevaCuenta({ onBack, onContinue, banco, onBancoClick })
         <StatusBar />
       </div>
       <div className="absolute left-0 top-14 w-full">
-        <ScreenHeader title="Transferencias" onBack={onBack} />
+        <ScreenHeader title="Agregar cuenta" onBack={onBack} />
       </div>
 
       <div className="absolute bg-white h-[745px] left-0 rounded-2xl shadow-[-2px_-3px_45.2px_rgba(0,0,0,0.21)] top-[119px] w-full overflow-y-auto">
         <div className="flex flex-col gap-5 items-start px-6 pt-6 pb-32">
-          <div className="w-full">
-            <div className="bg-white border-[0.5px] border-principal flex items-center gap-1.5 h-9 pl-3 pr-9 py-[17px] rounded-[41px] w-full">
-              <img alt="" src={magnifyingGlass} className="size-[15px]" />
-            </div>
-          </div>
-
           <p className="text-[14px] text-principal leading-[23px]">
             Envía a una cuenta que todavía no has guardado como contacto.
           </p>
