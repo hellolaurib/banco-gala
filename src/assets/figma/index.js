@@ -27,6 +27,7 @@ import magnifyingGlass from './magnifying-glass.svg'
 import galaLogo from './gala-logo.svg'
 import smileySticker from './smiley-sticker.svg'
 import infoIcon from './info-icon.svg'
+import galaPlusBanner from './gala-plus-banner.jpg'
 
 export {
   statusBattery,
@@ -56,4 +57,5 @@ export {
   galaLogo,
   smileySticker,
   infoIcon,
+  galaPlusBanner,
 }

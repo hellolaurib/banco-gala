@@ -19,6 +19,7 @@ export default function App() {
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
   const [selectedTransfer, setSelectedTransfer] = useState(null)
+  const [transferBack, setTransferBack] = useState('home')
   const [comisionesOpen, setComisionesOpen] = useState(false)
 
   function reset() {
@@ -53,7 +54,11 @@ export default function App() {
       {screen === 'home' && (
         <Home
           onTransferir={() => setSheetOpen(true)}
-          onVerEstado={() => setScreen('estadoTransferenciasList')}
+          onSelectTransfer={(t) => {
+            setSelectedTransfer(t)
+            setTransferBack('home')
+            setScreen('estadoTransferencia')
+          }}
         />
       )}
 
@@ -104,13 +109,14 @@ export default function App() {
           onBack={reset}
           onSelectTransfer={(t) => {
             setSelectedTransfer(t)
+            setTransferBack('estadoTransferenciasList')
             setScreen('estadoTransferencia')
           }}
         />
       )}
 
       {screen === 'estadoTransferencia' && (
-        <EstadoTransferencia transfer={selectedTransfer} onBack={() => setScreen('estadoTransferenciasList')} />
+        <EstadoTransferencia transfer={selectedTransfer} onBack={() => setScreen(transferBack)} />
       )}
     </PhoneFrame>
   )

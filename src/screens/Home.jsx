@@ -6,7 +6,6 @@ import {
   plus,
   repeat,
   barcode,
-  pathIcon,
   arrowTransfer,
   vectorDivider,
   vectorDash,
@@ -15,12 +14,14 @@ import {
   currencyEllipse,
   bell,
   scrollDots,
+  galaPlusBanner,
 } from '../assets/figma/index.js'
-import { RECENT_TRANSFERS, CONVERSION } from '../data/contacts.js'
+import { CONVERSION } from '../data/contacts.js'
+import { TRANSFERS } from '../data/transferStatus.js'
 
 // Traced 1:1 from the Figma "Home" frame (375×864) — every position below is
 // the frame's own absolute coordinate, not a re-layout.
-export default function Home({ onTransferir, onVerEstado }) {
+export default function Home({ onTransferir, onSelectTransfer }) {
   const [hideBalance, setHideBalance] = useState(false)
 
   return (
@@ -79,20 +80,16 @@ export default function Home({ onTransferir, onVerEstado }) {
         </div>
       </div>
 
-      {/* Estado de tus transacciones */}
-      <div className="absolute bg-white flex flex-col gap-2.5 h-[163px] left-6 pb-2 pl-[9px] pr-2 pt-[26px] rounded-2xl top-[316px] w-[326px] shadow-[-2px_-3px_22.6px_rgba(0,0,0,0.21)]">
-        <div className="flex gap-1.5 items-start absolute left-[14px] top-[15px]">
-          <img alt="" src={pathIcon} className="size-[13px]" />
-          <p className="text-[14px] leading-[23px] text-principal">Estado de tus transacciones</p>
-        </div>
-        <p className="absolute left-[26px] top-[71px] -translate-y-1/2 text-[14px] leading-5 text-principal w-[276px]">
-          Recientemente hiciste una transacción, mira el estado de entrega.
+      {/* Gala Plus promo banner */}
+      <div
+        className="absolute flex flex-col gap-2.5 h-[163px] left-6 pb-2 pl-[9px] pr-2 pt-[26px] rounded-2xl top-[316px] w-[326px] shadow-[-2px_-3px_45.2px_rgba(0,0,0,0.21)] overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)), url(${galaPlusBanner})` }}
+      >
+        <p className="absolute left-[26px] top-[71px] -translate-y-1/2 text-[14px] font-medium leading-5 text-white w-[213px]">
+          ¿Estás perdiendo mucho tiempo en comisiones? Prueba Gala Plus.
         </p>
-        <button
-          onClick={onVerEstado}
-          className="absolute bg-white flex items-center justify-center h-[49px] left-4 rounded-[15px] top-[98px] w-[294px]"
-        >
-          <p className="text-[14px] leading-[23px] text-principal">Ver el estado</p>
+        <button className="absolute bg-white flex items-center justify-center h-[49px] left-4 rounded-[15px] top-[98px] w-[294px]">
+          <p className="text-[14px] leading-[23px] text-principal">Obtén una prueba gratis</p>
         </button>
       </div>
 
@@ -131,28 +128,40 @@ export default function Home({ onTransferir, onVerEstado }) {
       <img alt="" src={vectorDivider} className="absolute left-6 top-[600px] w-[327px] h-0" />
 
       {/* Recent transfers */}
-      <div className="absolute flex flex-col left-[25px] top-[649px] w-[326px]">
-        {RECENT_TRANSFERS.map((t) => (
-          <div key={t.name} className="flex gap-[13px] items-center w-full py-0">
-            <div className="bg-[rgba(217,217,217,0.47)] flex items-start p-[7px] rounded-[18px] shrink-0 size-9">
-              <img alt="" src={arrowTransfer} className="rotate-180 size-[22px]" />
-            </div>
-            <div className="flex items-center justify-between w-full">
-              <div className="flex flex-col items-start">
-                <p className="text-[15px] font-medium leading-[26px] mb-[-10px]">{t.name}</p>
-                <p className="text-[10px] leading-[26px] text-ink-2">
-                  {t.date} · <span className="text-link">Ver estado</span>
-                </p>
+      <div className="absolute flex flex-col gap-4 left-[25px] top-[649px] w-[326px]">
+        {TRANSFERS.map((t) => {
+          const delivered = t.statusLabel === 'Completada'
+          return (
+            <div key={t.contactName} className="flex gap-[13px] items-center w-full py-0">
+              <div className="bg-[rgba(217,217,217,0.47)] flex items-start p-[7px] rounded-[18px] shrink-0 size-9">
+                <img alt="" src={arrowTransfer} className="rotate-180 size-[22px]" />
               </div>
-              <div className="flex gap-1.5 items-center">
-                <img alt="" src={vectorDash} className="w-2 h-0" />
-                <p className="text-[15px] font-medium leading-[26px] text-negative opacity-56">
-                  ${t.amount.toLocaleString('es-CO')}
-                </p>
+              <div className="flex items-center justify-between w-full">
+                <div className="flex flex-col items-start">
+                  <p className="text-[15px] font-medium leading-[26px] mb-[-10px]">
+                    Transferencia a {t.contactName}
+                  </p>
+                  <p className="text-[10px] leading-[26px] text-ink-2">
+                    {t.date} ·{' '}
+                    {delivered ? (
+                      <span className="text-positive">Entregado</span>
+                    ) : (
+                      <button onClick={() => onSelectTransfer(t)} className="text-link">
+                        Ver estado
+                      </button>
+                    )}
+                  </p>
+                </div>
+                <div className="flex gap-1.5 items-center">
+                  <img alt="" src={vectorDash} className="w-2 h-0" />
+                  <p className="text-[15px] font-medium leading-[26px] text-negative opacity-56">
+                    ${t.amount.toLocaleString('es-CO')}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       <div className="absolute left-0 top-[773px] w-full">
