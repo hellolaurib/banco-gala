@@ -3,6 +3,7 @@ import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
 import { caretRightSmall } from '../assets/figma/index.js'
+import { conApellidoAleatorio } from '../data/apellidos.js'
 
 // Traced from the Figma "Inscribir producto" frame (375×864) — step 2 of
 // adding a new account (after picking Colombia in PaisSelector). Replaces
@@ -28,8 +29,12 @@ export default function NuevaCuenta({ onBack, onContinue, banco, onBancoClick })
 
   function handleContinuar() {
     if (!puedeContinuar) return
+    // The nickname is just what Laura typed to recognize the account later —
+    // from Envío onward we show it with a random last name tacked on so it
+    // reads like a real, verified full name instead of a bare first name.
+    const nombreVerificado = nickname.trim() ? conApellidoAleatorio(nickname.trim()) : `Cuenta ${banco}`
     onContinue({
-      name: nickname.trim() || `Cuenta ${banco}`,
+      name: nombreVerificado,
       account: formatearCuenta(numeroCuenta),
       documento: documento.trim(),
       banco,
