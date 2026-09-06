@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PhoneFrame from './components/PhoneFrame.jsx'
+import SignIn from './screens/SignIn.jsx'
 import Home from './screens/Home.jsx'
 import EnviaRecibe from './screens/EnviaRecibe.jsx'
 import Transferencia from './screens/Transferencia.jsx'
@@ -12,7 +13,7 @@ import EstadoTransaccion from './screens/EstadoTransaccion.jsx'
 const MAX_DIGITS = 9
 
 export default function App() {
-  const [screen, setScreen] = useState('home')
+  const [screen, setScreen] = useState('signin')
   const [sheetOpen, setSheetOpen] = useState(false)
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
@@ -42,6 +43,8 @@ export default function App() {
         )
       }
     >
+      {screen === 'signin' && <SignIn onEnter={() => setScreen('home')} />}
+
       {screen === 'home' && <Home onTransferir={() => setSheetOpen(true)} />}
 
       {screen === 'transferencia' && (

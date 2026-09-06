@@ -24,6 +24,8 @@ import caretRight from './caret-right.svg'
 import contactAvatar from './contact-avatar.png'
 import backChevron from './back-chevron.svg'
 import magnifyingGlass from './magnifying-glass.svg'
+import galaLogo from './gala-logo.svg'
+import smileySticker from './smiley-sticker.svg'
 
 export {
   statusBattery,
@@ -50,4 +52,6 @@ export {
   contactAvatar,
   backChevron,
   magnifyingGlass,
+  galaLogo,
+  smileySticker,
 }
