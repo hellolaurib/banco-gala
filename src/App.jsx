@@ -5,10 +5,9 @@ import Home from './screens/Home.jsx'
 import EnviaRecibe from './screens/EnviaRecibe.jsx'
 import Transferencia from './screens/Transferencia.jsx'
 import Envio from './screens/Envio.jsx'
-import Verificacion from './screens/Verificacion.jsx'
 import Confirmacion from './screens/Confirmacion.jsx'
-import PopupConfirmacion from './screens/PopupConfirmacion.jsx'
-import EstadoTransaccion from './screens/EstadoTransaccion.jsx'
+import Recibo from './screens/Recibo.jsx'
+import EstadoTransferenciasList from './screens/EstadoTransferenciasList.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 
 const MAX_DIGITS = 9
@@ -18,6 +17,7 @@ export default function App() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
+  const [selectedTransfer, setSelectedTransfer] = useState(null)
 
   function reset() {
     setSheetOpen(false)
@@ -47,10 +47,11 @@ export default function App() {
       {screen === 'signin' && <SignIn onEnter={() => setScreen('home')} />}
 
       {screen === 'home' && (
-        <Home onTransferir={() => setSheetOpen(true)} onVerEstado={() => setScreen('estadoTransferencia')} />
+        <Home
+          onTransferir={() => setSheetOpen(true)}
+          onVerEstado={() => setScreen('estadoTransferenciasList')}
+        />
       )}
-
-      {screen === 'estadoTransferencia' && <EstadoTransferencia onBack={() => setScreen('home')} />}
 
       {screen === 'transferencia' && (
         <Transferencia
@@ -69,26 +70,41 @@ export default function App() {
           onDigit={addAmountDigit}
           onBackspace={() => setAmount((a) => a.slice(0, -1))}
           onBack={() => setScreen('transferencia')}
-          onSend={() => amount && setScreen('verificacion')}
+          onSend={() => amount && setScreen('confirmacion')}
         />
-      )}
-
-      {screen === 'verificacion' && (
-        <Verificacion onBack={() => setScreen('envio')} onAdvance={() => setScreen('confirmacion')} />
       )}
 
       {screen === 'confirmacion' && (
-        <Confirmacion onBack={() => setScreen('verificacion')} onAdvance={() => setScreen('popupConfirmacion')} />
-      )}
-
-      {screen === 'popupConfirmacion' && (
-        <PopupConfirmacion
-          onBack={() => setScreen('confirmacion')}
-          onAdvance={() => setScreen('estadoTransaccion')}
+        <Confirmacion
+          contact={contact}
+          amount={amount}
+          onConfirm={() => setScreen('recibo')}
+          onCancel={reset}
         />
       )}
 
-      {screen === 'estadoTransaccion' && <EstadoTransaccion onDone={reset} />}
+      {screen === 'recibo' && (
+        <Recibo
+          contact={contact}
+          amount={amount}
+          onVerEstado={() => setScreen('estadoTransferenciasList')}
+          onDescargar={() => {}}
+        />
+      )}
+
+      {screen === 'estadoTransferenciasList' && (
+        <EstadoTransferenciasList
+          onBack={reset}
+          onSelectTransfer={(t) => {
+            setSelectedTransfer(t)
+            setScreen('estadoTransferencia')
+          }}
+        />
+      )}
+
+      {screen === 'estadoTransferencia' && (
+        <EstadoTransferencia transfer={selectedTransfer} onBack={() => setScreen('estadoTransferenciasList')} />
+      )}
     </PhoneFrame>
   )
 }

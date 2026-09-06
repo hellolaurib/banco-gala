@@ -26,6 +26,7 @@ import backChevron from './back-chevron.svg'
 import magnifyingGlass from './magnifying-glass.svg'
 import galaLogo from './gala-logo.svg'
 import smileySticker from './smiley-sticker.svg'
+import infoIcon from './info-icon.svg'
 
 export {
   statusBattery,
@@ -54,4 +55,5 @@ export {
   magnifyingGlass,
   galaLogo,
   smileySticker,
+  infoIcon,
 }

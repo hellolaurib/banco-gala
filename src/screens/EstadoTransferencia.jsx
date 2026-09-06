@@ -28,8 +28,8 @@ function StepDot({ status }) {
   return <div className="size-6 rounded-full border-2 border-line shrink-0" />
 }
 
-export default function EstadoTransferencia({ onBack }) {
-  const t = TRACKED_TRANSFER
+export default function EstadoTransferencia({ onBack, transfer }) {
+  const t = transfer ?? TRACKED_TRANSFER
 
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">

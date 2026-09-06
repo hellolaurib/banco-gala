@@ -1,12 +1,11 @@
 import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TransferDetails from '../components/TransferDetails.jsx'
-import { vectorDivider } from '../assets/figma/index.js'
 
-// Traced from the Figma "Popup" frame 23:1856 — "Datos de la transferencia"
-// review step, added by Laura after the first pass. Real amount/contact
-// come from the flow's own state instead of Figma's sample "$1,200".
-export default function Confirmacion({ contact, amount, onConfirm, onCancel }) {
+// Traced from the Figma "Popup" frame 23:2195 — the success/receipt step
+// added by Laura, shown right after confirming. Real amount/contact come
+// from the flow's own state instead of Figma's sample "$1,200".
+export default function Recibo({ contact, amount, onVerEstado, onDescargar }) {
   const total = Number(amount) || 0
   const commission = total * 0.003
   const netTotal = total - commission
@@ -21,37 +20,36 @@ export default function Confirmacion({ contact, amount, onConfirm, onCancel }) {
         <StatusBar />
       </div>
       <div className="absolute left-0 top-14 w-full">
-        <ScreenHeader title="Verificación" onBack={onCancel} />
+        <ScreenHeader title="Verificación" onBack={onVerEstado} />
       </div>
 
-      <div className="absolute bg-white h-[900px] left-0 rounded-2xl shadow-[-2px_-3px_45.2px_rgba(0,0,0,0.21)] top-[118px] w-full">
-        <p className="text-center text-[15px] font-medium mt-[26px]">Datos de la transferencia</p>
-
-        <div className="text-center mt-5">
-          <p className="text-[15px] font-medium text-ink-3">Vas a transferir</p>
-          <p className="text-[54px] font-semibold leading-none mt-1">
+      <div className="absolute bg-white h-[746px] left-0 rounded-2xl shadow-[-2px_-3px_22.6px_rgba(0,0,0,0.21)] top-[118px] w-full">
+        <div className="flex flex-col items-center mt-[92px]">
+          <span className="bg-positive/20 text-positive text-[12px] font-medium rounded-[7px] px-[17px] py-1 flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-positive" />
+            Transferencia exitosa
+          </span>
+          <p className="text-[54px] font-semibold leading-none mt-4">
             ${total.toLocaleString('es-CO')} <span className="text-[24px] align-top">USD</span>
           </p>
         </div>
 
-        <img alt="" src={vectorDivider} className="w-[327px] h-0 mx-auto mt-6 block" />
-
-        <div className="px-6 mt-[23px]">
+        <div className="px-6 mt-[46px]">
           <TransferDetails contact={contact} amount={total} commission={commission} total={netTotal} />
         </div>
       </div>
 
       <button
-        onClick={onConfirm}
+        onClick={onVerEstado}
         className="absolute bg-principal text-white flex items-center justify-center left-6 top-[653px] px-9 py-[17px] rounded-[15px] w-[326px]"
       >
-        <p className="text-[14px] leading-[23px]">Enviar</p>
+        <p className="text-[14px] leading-[23px]">Ver estado de transferencia</p>
       </button>
       <button
-        onClick={onCancel}
+        onClick={onDescargar}
         className="absolute border border-principal flex items-center justify-center left-6 top-[711px] px-9 py-[17px] rounded-[15px] w-[326px]"
       >
-        <p className="text-[14px] leading-[23px] text-principal">Cancelar transferencia</p>
+        <p className="text-[14px] leading-[23px] text-principal">Descargar</p>
       </button>
     </div>
   )
