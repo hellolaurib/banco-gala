@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Fustat:wght@400;500;600;700&family=Poppins:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Fustat', system-ui, sans-serif;
+  --font-nav: 'Poppins', system-ui, sans-serif;
+
+  --color-principal: #191c3c;
+  --color-principal-mid: #3a418c;
+  --color-accent: #3629b7;
+  --color-accent-2: #4b5efc;
+  --color-link: #1e78ca;
+  --color-negative: #a40404;
+  --color-positive: #15813e;
+  --color-ink-2: #727272;
+  --color-ink-3: #898989;
+  --color-line: #acacac;
+  --color-line-2: #cacaca;
+  --color-page-bg: #eef0f7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page-bg);
+  color: var(--color-principal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
