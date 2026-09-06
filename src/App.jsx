@@ -9,6 +9,7 @@ import Confirmacion from './screens/Confirmacion.jsx'
 import Recibo from './screens/Recibo.jsx'
 import EstadoTransferenciasList from './screens/EstadoTransferenciasList.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
+import ComisionesInfo from './screens/ComisionesInfo.jsx'
 
 const MAX_DIGITS = 9
 
@@ -18,6 +19,7 @@ export default function App() {
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
   const [selectedTransfer, setSelectedTransfer] = useState(null)
+  const [comisionesOpen, setComisionesOpen] = useState(false)
 
   function reset() {
     setSheetOpen(false)
@@ -33,7 +35,7 @@ export default function App() {
   return (
     <PhoneFrame
       overlay={
-        sheetOpen && (
+        sheetOpen ? (
           <EnviaRecibe
             onClose={() => setSheetOpen(false)}
             onEnvia={() => {
@@ -41,6 +43,8 @@ export default function App() {
               setScreen('transferencia')
             }}
           />
+        ) : (
+          comisionesOpen && <ComisionesInfo onClose={() => setComisionesOpen(false)} />
         )
       }
     >
@@ -80,6 +84,7 @@ export default function App() {
           amount={amount}
           onConfirm={() => setScreen('recibo')}
           onCancel={reset}
+          onInfoClick={() => setComisionesOpen(true)}
         />
       )}
 
@@ -89,6 +94,7 @@ export default function App() {
           amount={amount}
           onVerEstado={() => setScreen('estadoTransferenciasList')}
           onDescargar={() => {}}
+          onInfoClick={() => setComisionesOpen(true)}
         />
       )}
 

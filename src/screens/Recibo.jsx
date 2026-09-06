@@ -5,7 +5,7 @@ import TransferDetails from '../components/TransferDetails.jsx'
 // Traced from the Figma "Popup" frame 23:2195 — the success/receipt step
 // added by Laura, shown right after confirming. Real amount/contact come
 // from the flow's own state instead of Figma's sample "$1,200".
-export default function Recibo({ contact, amount, onVerEstado, onDescargar }) {
+export default function Recibo({ contact, amount, onVerEstado, onDescargar, onInfoClick }) {
   const total = Number(amount) || 0
   const commission = total * 0.003
   const netTotal = total - commission
@@ -35,7 +35,13 @@ export default function Recibo({ contact, amount, onVerEstado, onDescargar }) {
         </div>
 
         <div className="px-6 mt-[46px]">
-          <TransferDetails contact={contact} amount={total} commission={commission} total={netTotal} />
+          <TransferDetails
+            contact={contact}
+            amount={total}
+            commission={commission}
+            total={netTotal}
+            onInfoClick={onInfoClick}
+          />
         </div>
       </div>
 

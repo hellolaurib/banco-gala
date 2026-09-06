@@ -6,7 +6,7 @@ import { vectorDivider } from '../assets/figma/index.js'
 // Traced from the Figma "Popup" frame 23:1856 — "Datos de la transferencia"
 // review step, added by Laura after the first pass. Real amount/contact
 // come from the flow's own state instead of Figma's sample "$1,200".
-export default function Confirmacion({ contact, amount, onConfirm, onCancel }) {
+export default function Confirmacion({ contact, amount, onConfirm, onCancel, onInfoClick }) {
   const total = Number(amount) || 0
   const commission = total * 0.003
   const netTotal = total - commission
@@ -37,7 +37,13 @@ export default function Confirmacion({ contact, amount, onConfirm, onCancel }) {
         <img alt="" src={vectorDivider} className="w-[327px] h-0 mx-auto mt-6 block" />
 
         <div className="px-6 mt-[23px]">
-          <TransferDetails contact={contact} amount={total} commission={commission} total={netTotal} />
+          <TransferDetails
+            contact={contact}
+            amount={total}
+            commission={commission}
+            total={netTotal}
+            onInfoClick={onInfoClick}
+          />
         </div>
       </div>
 
