@@ -1,7 +1,7 @@
 export const CONTACTS = [
-  { id: 'camila', name: 'Camila Ríos', account: '321 123 *** ***', initial: 'C', color: '#8b7cf6' },
-  { id: 'angela', name: 'Angela Ríos', account: '321 123 *** ***', initial: 'A', color: '#f6a25a' },
-  { id: 'pablo', name: 'Pablo Charry', account: '321 123 *** ***', initial: 'P', color: '#5ac8f6' },
+  { id: 'camila', name: 'Camila Ríos', account: '321 123 *** ***' },
+  { id: 'angela', name: 'Angela Ríos', account: '321 123 *** ***' },
+  { id: 'pablo', name: 'Pablo Charry', account: '321 123 *** ***' },
 ]
 
 // Recent transfers shown on the Home screen

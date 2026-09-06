@@ -1,42 +1,40 @@
-import { ArrowTransfer, Plus, CaretRight } from '../components/Icons.jsx'
+import { arrowTransfer, plus, caretRight } from '../assets/figma/index.js'
 
-// Bottom sheet opened from Home's "Transferir" button. Sits on top of the
-// (dimmed) Home screen, matching the Figma frame it was traced from.
+// Bottom sheet opened from Home's "Transferir" button — traced from the
+// "Envia o recibe" Figma frame's bottom-sheet overlay (dim backdrop + panel).
 export default function EnviaRecibe({ onEnvia, onClose }) {
   return (
     <div className="absolute inset-0 z-20">
-      <button
-        aria-label="Cerrar"
-        onClick={onClose}
-        className="absolute inset-0 bg-black/55"
-      />
-      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[16px] shadow-[-2px_-3px_22.6px_rgba(0,0,0,0.21)] pt-[26px] pb-6 px-[17px] animate-[slideUp_0.25s_ease-out]">
-        <div className="mx-auto h-1 w-[34px] rounded-full bg-line-2/60 mb-5" />
+      <button aria-label="Cerrar" onClick={onClose} className="absolute inset-0 bg-black opacity-[0.57]" />
 
-        <button
-          onClick={onEnvia}
-          className="w-full flex items-center gap-3.5 py-2 text-left"
-        >
-          <div className="size-9 rounded-full bg-[#d9d9d9]/45 flex items-center justify-center shrink-0">
-            <ArrowTransfer className="size-4 text-principal" />
-          </div>
-          <div className="flex-1">
-            <p className="text-[15px] font-medium">Envía</p>
-            <p className="text-[10px] text-ink-2">Envía dinero a una cuenta de Banco</p>
-          </div>
-          <CaretRight className="size-6 text-line" />
-        </button>
+      <div className="absolute bottom-0 left-[-2px] w-[377px] flex flex-col gap-3 pt-[49px] pb-[19px] px-[17px] animate-[slideUp_0.25s_ease-out]">
+        <div className="absolute bg-white h-[163px] left-px top-0 w-[376px] rounded-t-2xl pt-[26px]">
+          <div className="absolute bg-[rgba(202,202,202,0.51)] h-1 left-[171px] rounded-full top-3 w-[34px]" />
+        </div>
 
-        <button className="w-full flex items-center gap-3.5 py-2 text-left mt-3.5">
-          <div className="size-9 rounded-full bg-[#d9d9d9]/45 flex items-center justify-center shrink-0">
-            <Plus className="size-4 text-principal" />
+        <div className="relative flex flex-col gap-3.5 items-start px-[9px] w-[304px]">
+          <button onClick={onEnvia} className="flex gap-[13px] items-center w-[335px] text-left">
+            <div className="bg-[rgba(217,217,217,0.47)] flex items-center justify-center p-[7px] rounded-[18px] shrink-0 size-9">
+              <img alt="" src={arrowTransfer} style={{ transform: 'rotate(135deg)' }} className="size-[16px]" />
+            </div>
+            <div className="flex-1">
+              <p className="text-[15px] font-medium leading-[26px] mb-[-10px]">Envía</p>
+              <p className="text-[10px] leading-[26px] text-ink-2">Envía dinero a una cuenta de Banco</p>
+            </div>
+            <img alt="" src={caretRight} className="size-8" />
+          </button>
+
+          <div className="flex gap-[13px] items-center w-[335px]">
+            <div className="bg-[rgba(217,217,217,0.47)] flex items-center justify-center p-[7px] rounded-[18px] shrink-0 size-9">
+              <img alt="" src={plus} className="size-4" />
+            </div>
+            <div className="flex-1">
+              <p className="text-[15px] font-medium leading-[26px] mb-[-10px]">Recibe</p>
+              <p className="text-[10px] leading-[26px] text-ink-2">Recibe dinero a tu cuenta de Banco</p>
+            </div>
+            <img alt="" src={caretRight} className="size-8" />
           </div>
-          <div className="flex-1">
-            <p className="text-[15px] font-medium">Recibe</p>
-            <p className="text-[10px] text-ink-2">Recibe dinero a tu cuenta de Banco</p>
-          </div>
-          <CaretRight className="size-6 text-line" />
-        </button>
+        </div>
       </div>
     </div>
   )

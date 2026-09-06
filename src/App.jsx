@@ -16,29 +16,16 @@ export default function App() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [contact, setContact] = useState(null)
   const [amount, setAmount] = useState('')
-  const [pin, setPin] = useState('')
 
   function reset() {
     setSheetOpen(false)
     setContact(null)
     setAmount('')
-    setPin('')
     setScreen('home')
   }
 
   function addAmountDigit(d) {
     setAmount((a) => (a.length >= MAX_DIGITS ? a : a === '0' ? d : a + d))
-  }
-
-  function addPinDigit(d) {
-    setPin((p) => {
-      if (p.length >= 4) return p
-      const next = p + d
-      if (next.length === 4) {
-        setTimeout(() => setScreen('confirmacion'), 250)
-      }
-      return next
-    })
   }
 
   return (
@@ -79,37 +66,21 @@ export default function App() {
       )}
 
       {screen === 'verificacion' && (
-        <Verificacion
-          pin={pin}
-          onDigit={addPinDigit}
-          onBackspace={() => setPin((p) => p.slice(0, -1))}
-          onBack={() => {
-            setPin('')
-            setScreen('envio')
-          }}
-        />
+        <Verificacion onBack={() => setScreen('envio')} onAdvance={() => setScreen('confirmacion')} />
       )}
 
       {screen === 'confirmacion' && (
-        <Confirmacion
-          contact={contact}
-          amount={amount}
-          onBack={() => setScreen('verificacion')}
-          onConfirm={() => setScreen('popupConfirmacion')}
-        />
+        <Confirmacion onBack={() => setScreen('verificacion')} onAdvance={() => setScreen('popupConfirmacion')} />
       )}
 
       {screen === 'popupConfirmacion' && (
         <PopupConfirmacion
-          contact={contact}
-          amount={amount}
-          onContinue={() => setScreen('estadoTransaccion')}
+          onBack={() => setScreen('confirmacion')}
+          onAdvance={() => setScreen('estadoTransaccion')}
         />
       )}
 
-      {screen === 'estadoTransaccion' && (
-        <EstadoTransaccion contact={contact} amount={amount} onDone={reset} />
-      )}
+      {screen === 'estadoTransaccion' && <EstadoTransaccion onDone={reset} />}
     </PhoneFrame>
   )
 }

@@ -4,7 +4,7 @@
 export default function PhoneFrame({ children, overlay }) {
   return (
     <div className="min-h-screen w-full flex items-center justify-center py-10 px-4">
-      <div className="relative w-[375px] h-[812px] max-h-[92vh] bg-white rounded-[44px] shadow-[0_30px_70px_-15px_rgba(25,28,60,0.45)] ring-8 ring-principal/90 overflow-hidden">
+      <div className="relative w-[375px] h-[864px] max-h-[92vh] bg-white rounded-[44px] shadow-[0_30px_70px_-15px_rgba(25,28,60,0.45)] ring-8 ring-principal/90 overflow-hidden">
         <div className="absolute inset-0 overflow-y-auto overflow-x-hidden">{children}</div>
         {/* Rendered against this outer, fixed-size box — not the scrollable
             content above — so a bottom sheet always docks to the device's
