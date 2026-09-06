@@ -1,0 +1,373 @@
+<title>Flujo de Transferencia Banco GALA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fustat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --page-bg: #f3f4fa;
+    --surface: #ffffff;
+    --surface-2: #eceefa;
+    --ink: #191c3c;
+    --ink-2: #3a418c;
+    --muted: #6b7094;
+    --line: #d7dbee;
+    --accent: #3629b7;
+    --accent-2: #4b5efc;
+    --positive: #15813e;
+    --negative: #a40404;
+    --chip-header: #191c3c;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page-bg: #12142a;
+      --surface: #1c1f3a;
+      --surface-2: #242850;
+      --ink: #eef0fb;
+      --ink-2: #b9c0ef;
+      --muted: #9aa1c9;
+      --line: #33375e;
+      --accent: #8b7cf5;
+      --accent-2: #6d8bff;
+      --positive: #34c77a;
+      --negative: #ff7a7a;
+      --chip-header: #2f3468;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --page-bg: #12142a;
+    --surface: #1c1f3a;
+    --surface-2: #242850;
+    --ink: #eef0fb;
+    --ink-2: #b9c0ef;
+    --muted: #9aa1c9;
+    --line: #33375e;
+    --accent: #8b7cf5;
+    --accent-2: #6d8bff;
+    --positive: #34c77a;
+    --negative: #ff7a7a;
+    --chip-header: #2f3468;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: 'Fustat', system-ui, sans-serif;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .eyebrow-page {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Fustat', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 8px 0 10px;
+    color: var(--ink);
+  }
+
+  .intro {
+    max-width: 62ch;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 36px;
+  }
+
+  .intro strong { color: var(--ink); font-weight: 600; }
+
+  figure {
+    margin: 0 0 12px;
+  }
+
+  .diagram-frame {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 8px;
+    overflow-x: auto;
+  }
+
+  svg.flow { display: block; width: 100%; height: auto; min-width: 920px; }
+
+  figcaption {
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 68ch;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 18px 0 44px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+
+  .legend-swatch { width: 26px; height: 0; border-top-width: 2px; border-top-style: solid; display: inline-block; }
+  .legend-swatch.dashed { border-top-style: dashed; }
+
+  h2 {
+    font-family: 'Fustat', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+
+  .section-note {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+
+  .ref-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .ref-row {
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .ref-row:nth-child(even) { background: var(--surface-2); }
+
+  .ref-name { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+
+  .ref-file {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .node-title { font: 600 10px/1 'Fustat', sans-serif; fill: #ffffff; }
+  .node-sub { font: 400 9.5px/1 'Fustat', sans-serif; fill: var(--ink); }
+  .eyebrow-svg {
+    font: 500 10.5px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.09em;
+    fill: var(--muted);
+    text-transform: uppercase;
+  }
+  .arrow-label { font: 500 10.5px/1 'Fustat', sans-serif; }
+  .arrow-label.tight { font-size: 10px; }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow-page">Banco GALA · UX</p>
+  <h1>Flujo de transferencia</h1>
+  <p class="intro">
+    Recorrido completo de <strong>enviar dinero</strong> en Banco GALA: desde que Valentina vuelve a entrar a la
+    app hasta que revisa en qué punto va su transferencia. Nueve pantallas, un atajo de cancelación y un acceso
+    directo al seguimiento desde Home.
+  </p>
+
+  <figure>
+    <div class="diagram-frame">
+      <svg class="flow" viewBox="0 0 1520 640" role="img" aria-label="Diagrama de flujo: Sign in lleva a Home; desde Home, Transferir abre Envía o recibe, que lleva a Transferencia, Envío, Confirmación y Recibo; Recibo baja a Estado de transferencias y de ahí a Estado de la transferencia; Confirmación puede cancelar y volver a Home; Home también accede directo a Estado de la transferencia por una transferencia en curso; y ese detalle vuelve a Home.">
+        <defs>
+          <marker id="arrAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--accent)" />
+          </marker>
+          <marker id="arrNegative" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--negative)" />
+          </marker>
+          <marker id="arrAccent2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--accent-2)" />
+          </marker>
+          <marker id="arrMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--muted)" />
+          </marker>
+        </defs>
+
+        <!-- Phase eyebrows -->
+        <text class="eyebrow-svg" x="114" y="112" text-anchor="middle">Autenticación</text>
+        <text class="eyebrow-svg" x="326" y="112" text-anchor="middle">Inicio</text>
+        <text class="eyebrow-svg" x="750" y="112" text-anchor="middle">Elegir y enviar</text>
+        <text class="eyebrow-svg" x="1280" y="112" text-anchor="middle">Confirmar</text>
+        <text class="eyebrow-svg" x="1174" y="414" text-anchor="middle">Seguimiento</text>
+
+        <!-- Arc 1: Confirmación -> Home (cancelar) -->
+        <polyline points="1174,130 1174,70 326,70 326,130" fill="none" stroke="var(--negative)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrNegative)" />
+        <text class="arrow-label" x="750" y="60" text-anchor="middle" fill="var(--negative)">Cancelar transferencia</text>
+
+        <!-- Arc 2: Home -> Estado de la transferencia (acceso directo) -->
+        <polyline points="300,226 300,320 930,320 930,430" fill="none" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrAccent2)" />
+        <text class="arrow-label" x="316" y="312" fill="var(--accent-2)">Ver estado — transferencia en curso</text>
+
+        <!-- Arc 3: Estado de la transferencia -> Home (volver) -->
+        <polyline points="994,526 994,580 360,580 360,226" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrMuted)" />
+        <text class="arrow-label" x="677" y="596" text-anchor="middle" fill="var(--muted)">Volver</text>
+
+        <!-- Main spine row 1 -->
+        <line x1="204" y1="178" x2="236" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="220" y="170" text-anchor="middle" fill="var(--ink-2)">Face ID</text>
+
+        <line x1="416" y1="178" x2="448" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="432" y="170" text-anchor="middle" fill="var(--ink-2)">Transferir</text>
+
+        <line x1="628" y1="178" x2="660" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="644" y="170" text-anchor="middle" fill="var(--ink-2)">Envía</text>
+
+        <line x1="840" y1="178" x2="872" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label tight" x="856" y="168" text-anchor="middle" fill="var(--ink-2)">Elegir contacto</text>
+
+        <line x1="1052" y1="178" x2="1084" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="1068" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
+
+        <line x1="1264" y1="178" x2="1296" y2="178" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label" x="1280" y="170" text-anchor="middle" fill="var(--ink-2)">Enviar</text>
+
+        <!-- Recibo -> Estado de transferencias (down) -->
+        <line x1="1386" y1="226" x2="1386" y2="430" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label tight" x="1396" y="320" fill="var(--ink-2)">Ver estado de</text>
+        <text class="arrow-label tight" x="1396" y="334" fill="var(--ink-2)">transferencia</text>
+
+        <!-- Estado de transferencias -> Estado de la transferencia (left) -->
+        <line x1="1296" y1="478" x2="1052" y2="478" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrAccent)" />
+        <text class="arrow-label tight" x="1174" y="468" text-anchor="middle" fill="var(--ink-2)">Seleccionar transferencia</text>
+
+        <!-- ============ NODES ============ -->
+
+        <!-- 1 Sign in -->
+        <g>
+          <rect x="24" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M24,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="114" y="184" text-anchor="middle">Reautenticación con</text>
+          <text class="node-sub" x="114" y="198" text-anchor="middle">Face ID o contraseña</text>
+        </g>
+        <text class="node-title" x="114" y="148" text-anchor="middle">Sign in</text>
+
+        <!-- 2 Home -->
+        <g>
+          <rect x="236" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M236,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="326" y="184" text-anchor="middle">Balance, accesos y</text>
+          <text class="node-sub" x="326" y="198" text-anchor="middle">transferencias recientes</text>
+        </g>
+        <text class="node-title" x="326" y="148" text-anchor="middle">Home</text>
+
+        <!-- 3 Envía o recibe -->
+        <g>
+          <rect x="448" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M448,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="538" y="184" text-anchor="middle">Hoja inferior:</text>
+          <text class="node-sub" x="538" y="198" text-anchor="middle">Envía o Recibe</text>
+        </g>
+        <text class="node-title" x="538" y="148" text-anchor="middle">Envía o recibe</text>
+
+        <!-- 4 Transferencia -->
+        <g>
+          <rect x="660" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M660,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="750" y="184" text-anchor="middle">Elegir contacto o</text>
+          <text class="node-sub" x="750" y="198" text-anchor="middle">buscar cuenta</text>
+        </g>
+        <text class="node-title" x="750" y="148" text-anchor="middle">Transferencia</text>
+
+        <!-- 5 Envío -->
+        <g>
+          <rect x="872" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M872,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="962" y="184" text-anchor="middle">Monto en USD,</text>
+          <text class="node-sub" x="962" y="198" text-anchor="middle">comisión y conversión</text>
+        </g>
+        <text class="node-title" x="962" y="148" text-anchor="middle">Envío</text>
+
+        <!-- 6 Confirmación -->
+        <g>
+          <rect x="1084" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1084,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="1174" y="184" text-anchor="middle">Revisar datos,</text>
+          <text class="node-sub" x="1174" y="198" text-anchor="middle">comisión y valor total</text>
+        </g>
+        <text class="node-title" x="1174" y="148" text-anchor="middle">Confirmación</text>
+
+        <!-- 7 Recibo -->
+        <g>
+          <rect x="1296" y="130" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1296,142 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--chip-header)" />
+          <text class="node-sub" x="1386" y="184" text-anchor="middle">Éxito de la</text>
+          <text class="node-sub" x="1386" y="198" text-anchor="middle">transferencia</text>
+        </g>
+        <text class="node-title" x="1386" y="148" text-anchor="middle">Recibo</text>
+
+        <!-- 9 Estado de la transferencia (bottom, detail) -->
+        <g>
+          <rect x="872" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M872,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
+          <text class="node-sub" x="962" y="484" text-anchor="middle">Línea de tiempo de</text>
+          <text class="node-sub" x="962" y="498" text-anchor="middle">entrega paso a paso</text>
+        </g>
+        <text class="node-title" x="962" y="448" text-anchor="middle">Estado de la transferencia</text>
+
+        <!-- 8 Estado de transferencias (bottom, list) -->
+        <g>
+          <rect x="1296" y="430" width="180" height="96" rx="12" fill="var(--surface)" stroke="var(--line)" />
+          <path d="M1296,442 a12,12 0 0 1 12,-12 h156 a12,12 0 0 1 12,12 v16 h-180 z" fill="var(--accent-2)" />
+          <text class="node-sub" x="1386" y="484" text-anchor="middle">Lista de envíos</text>
+          <text class="node-sub" x="1386" y="498" text-anchor="middle">con su estado</text>
+        </g>
+        <text class="node-title" x="1386" y="448" text-anchor="middle">Estado de transferencias</text>
+      </svg>
+    </div>
+    <figcaption>
+      El usuario abre la app, entra a Home, transfiere a un contacto y llega a un recibo de éxito. Desde ahí puede
+      revisar el estado en la lista de transferencias, o — si ya tiene una en curso — entrar directo desde Home sin
+      pasar por todo el flujo. Cancelar en Confirmación devuelve a Home sin enviar nada.
+    </figcaption>
+  </figure>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch" style="border-color: var(--accent);"></span> Paso siguiente del flujo</div>
+    <div class="legend-item"><span class="legend-swatch dashed" style="border-color: var(--accent-2);"></span> Atajo a seguimiento</div>
+    <div class="legend-item"><span class="legend-swatch dashed" style="border-color: var(--negative);"></span> Cancelar y salir</div>
+    <div class="legend-item"><span class="legend-swatch dashed" style="border-color: var(--muted);"></span> Volver</div>
+  </div>
+
+  <h2>Pantallas → componentes</h2>
+  <p class="section-note">Cada nodo del diagrama, con el archivo donde vive en el código de la app.</p>
+  <div class="ref-list">
+    <div class="ref-row"><span class="ref-name">Sign in</span><span class="ref-file">src/screens/SignIn.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Home</span><span class="ref-file">src/screens/Home.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Envía o recibe</span><span class="ref-file">src/screens/EnviaRecibe.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Transferencia</span><span class="ref-file">src/screens/Transferencia.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Envío</span><span class="ref-file">src/screens/Envio.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Confirmación</span><span class="ref-file">src/screens/Confirmacion.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Recibo</span><span class="ref-file">src/screens/Recibo.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Estado de transferencias</span><span class="ref-file">src/screens/EstadoTransferenciasList.jsx</span></div>
+    <div class="ref-row"><span class="ref-name">Estado de la transferencia</span><span class="ref-file">src/screens/EstadoTransferencia.jsx</span></div>
+  </div>
+</div>

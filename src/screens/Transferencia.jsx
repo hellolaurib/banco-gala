@@ -5,7 +5,7 @@ import { magnifyingGlass, plus, contactAvatar } from '../assets/figma/index.js'
 import { CONTACTS } from '../data/contacts.js'
 
 // Traced 1:1 from the Figma "Transferencia" frame (375×864).
-export default function Transferencia({ onSelectContact, onBack }) {
+export default function Transferencia({ onSelectContact, onBack, onAgregar }) {
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">
       <div
@@ -48,7 +48,10 @@ export default function Transferencia({ onSelectContact, onBack }) {
         </div>
       </div>
 
-      <button className="absolute bg-principal flex items-center justify-center gap-1.5 left-6 top-[701px] px-9 py-[17px] rounded-[15px] w-[326px]">
+      <button
+        onClick={onAgregar}
+        className="absolute bg-principal flex items-center justify-center gap-1.5 left-6 top-[701px] px-9 py-[17px] rounded-[15px] w-[326px]"
+      >
         <img alt="" src={plus} className="size-4 invert" />
         <p className="text-[14px] leading-[23px] text-white">Agregar</p>
       </button>

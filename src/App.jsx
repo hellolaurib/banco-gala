@@ -10,6 +10,7 @@ import Recibo from './screens/Recibo.jsx'
 import EstadoTransferenciasList from './screens/EstadoTransferenciasList.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 import ComisionesInfo from './screens/ComisionesInfo.jsx'
+import NuevaCuenta from './screens/NuevaCuenta.jsx'
 
 const MAX_DIGITS = 9
 
@@ -66,6 +67,17 @@ export default function App() {
         <Transferencia
           onBack={reset}
           onSelectContact={(c) => {
+            setContact(c)
+            setScreen('envio')
+          }}
+          onAgregar={() => setScreen('nuevaCuenta')}
+        />
+      )}
+
+      {screen === 'nuevaCuenta' && (
+        <NuevaCuenta
+          onBack={() => setScreen('transferencia')}
+          onContinue={(c) => {
             setContact(c)
             setScreen('envio')
           }}
