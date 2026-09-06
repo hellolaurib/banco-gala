@@ -20,7 +20,7 @@ import { RECENT_TRANSFERS, CONVERSION } from '../data/contacts.js'
 
 // Traced 1:1 from the Figma "Home" frame (375×864) — every position below is
 // the frame's own absolute coordinate, not a re-layout.
-export default function Home({ onTransferir }) {
+export default function Home({ onTransferir, onVerEstado }) {
   const [hideBalance, setHideBalance] = useState(false)
 
   return (
@@ -88,7 +88,10 @@ export default function Home({ onTransferir }) {
         <p className="absolute left-[26px] top-[71px] -translate-y-1/2 text-[14px] leading-5 text-principal w-[276px]">
           Recientemente hiciste una transacción, mira el estado de entrega.
         </p>
-        <button className="absolute bg-white flex items-center justify-center h-[49px] left-4 rounded-[15px] top-[98px] w-[294px]">
+        <button
+          onClick={onVerEstado}
+          className="absolute bg-white flex items-center justify-center h-[49px] left-4 rounded-[15px] top-[98px] w-[294px]"
+        >
           <p className="text-[14px] leading-[23px] text-principal">Ver el estado</p>
         </button>
       </div>

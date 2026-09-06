@@ -9,6 +9,7 @@ import Verificacion from './screens/Verificacion.jsx'
 import Confirmacion from './screens/Confirmacion.jsx'
 import PopupConfirmacion from './screens/PopupConfirmacion.jsx'
 import EstadoTransaccion from './screens/EstadoTransaccion.jsx'
+import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 
 const MAX_DIGITS = 9
 
@@ -45,7 +46,11 @@ export default function App() {
     >
       {screen === 'signin' && <SignIn onEnter={() => setScreen('home')} />}
 
-      {screen === 'home' && <Home onTransferir={() => setSheetOpen(true)} />}
+      {screen === 'home' && (
+        <Home onTransferir={() => setSheetOpen(true)} onVerEstado={() => setScreen('estadoTransferencia')} />
+      )}
+
+      {screen === 'estadoTransferencia' && <EstadoTransferencia onBack={() => setScreen('home')} />}
 
       {screen === 'transferencia' && (
         <Transferencia
