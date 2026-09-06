@@ -16,10 +16,6 @@ import vectorDash from './vector-dash.svg'
 import avatarRing from './avatar-ring.svg'
 import avatarPhoto from './avatar-photo.png'
 import currencyEllipse from './currency-ellipse.png'
-import tabIconHome from './tab-icon-home.svg'
-import tabIconSearch from './tab-icon-search.svg'
-import tabIconMail from './tab-icon-mail.svg'
-import tabIconSettings from './tab-icon-settings.svg'
 import caretRight from './caret-right.svg'
 import contactAvatar from './contact-avatar.png'
 import backChevron from './back-chevron.svg'
@@ -28,6 +24,14 @@ import galaLogo from './gala-logo.svg'
 import smileySticker from './smiley-sticker.svg'
 import infoIcon from './info-icon.svg'
 import galaPlusBanner from './gala-plus-banner.jpg'
+import tabIconHome from './tab-icon-home.svg'
+import tabIconTransfer from './tab-icon-transfer.svg'
+import tabIconInvest from './tab-icon-invest.svg'
+import tabIconSave from './tab-icon-save.svg'
+import flagColombia from './flag-colombia.png'
+import flagUsa from './flag-usa.png'
+import flagEurope from './flag-europe.png'
+import flagBrazil from './flag-brazil.png'
 
 export {
   statusBattery,
@@ -46,10 +50,6 @@ export {
   avatarRing,
   avatarPhoto,
   currencyEllipse,
-  tabIconHome,
-  tabIconSearch,
-  tabIconMail,
-  tabIconSettings,
   caretRight,
   contactAvatar,
   backChevron,
@@ -58,4 +58,12 @@ export {
   smileySticker,
   infoIcon,
   galaPlusBanner,
+  tabIconHome,
+  tabIconTransfer,
+  tabIconInvest,
+  tabIconSave,
+  flagColombia,
+  flagUsa,
+  flagEurope,
+  flagBrazil,
 }

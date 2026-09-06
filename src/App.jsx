@@ -10,7 +10,9 @@ import Recibo from './screens/Recibo.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 import ComisionesInfo from './screens/ComisionesInfo.jsx'
 import NuevaCuenta from './screens/NuevaCuenta.jsx'
+import PaisSelector from './screens/PaisSelector.jsx'
 import CurrencyPicker from './screens/CurrencyPicker.jsx'
+import BancoPicker from './screens/BancoPicker.jsx'
 import { buildTransferStatus } from './data/transferStatus.js'
 import { CURRENCIES } from './data/currencies.js'
 
@@ -25,12 +27,15 @@ export default function App() {
   const [comisionesOpen, setComisionesOpen] = useState(false)
   const [currencyPickerOpen, setCurrencyPickerOpen] = useState(false)
   const [currency, setCurrency] = useState(CURRENCIES[0])
+  const [bancoPickerOpen, setBancoPickerOpen] = useState(false)
+  const [banco, setBanco] = useState('')
 
   function reset() {
     setSheetOpen(false)
     setContact(null)
     setAmount('')
     setCurrency(CURRENCIES[0])
+    setBanco('')
     setScreen('home')
   }
 
@@ -51,14 +56,23 @@ export default function App() {
           />
         ) : comisionesOpen ? (
           <ComisionesInfo onClose={() => setComisionesOpen(false)} />
+        ) : currencyPickerOpen ? (
+          <CurrencyPicker
+            current={currency}
+            onClose={() => setCurrencyPickerOpen(false)}
+            onSelect={(c) => {
+              setCurrency(c)
+              setCurrencyPickerOpen(false)
+            }}
+          />
         ) : (
-          currencyPickerOpen && (
-            <CurrencyPicker
-              current={currency}
-              onClose={() => setCurrencyPickerOpen(false)}
-              onSelect={(c) => {
-                setCurrency(c)
-                setCurrencyPickerOpen(false)
+          bancoPickerOpen && (
+            <BancoPicker
+              current={banco}
+              onClose={() => setBancoPickerOpen(false)}
+              onSelect={(b) => {
+                setBanco(b)
+                setBancoPickerOpen(false)
               }}
             />
           )
@@ -84,13 +98,22 @@ export default function App() {
             setContact(c)
             setScreen('envio')
           }}
-          onAgregar={() => setScreen('nuevaCuenta')}
+          onAgregar={() => setScreen('paisSelector')}
+        />
+      )}
+
+      {screen === 'paisSelector' && (
+        <PaisSelector
+          onBack={() => setScreen('transferencia')}
+          onSelectCountry={() => setScreen('nuevaCuenta')}
         />
       )}
 
       {screen === 'nuevaCuenta' && (
         <NuevaCuenta
-          onBack={() => setScreen('transferencia')}
+          banco={banco}
+          onBancoClick={() => setBancoPickerOpen(true)}
+          onBack={() => setScreen('paisSelector')}
           onContinue={(c) => {
             setContact(c)
             setScreen('envio')
