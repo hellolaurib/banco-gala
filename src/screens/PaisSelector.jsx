@@ -1,7 +1,7 @@
 import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
-import { caretRight } from '../assets/figma/index.js'
+import { caretRightSmall } from '../assets/figma/index.js'
 import { COUNTRIES } from '../data/countries.js'
 
 // Traced 1:1 from the Figma "Nuevo producto" frame (375×864, titled
@@ -43,7 +43,7 @@ export default function PaisSelector({ onBack, onSelectCountry }) {
                 <p className="text-[15px] font-medium leading-[26px] mb-[-10px]">{c.name}</p>
                 <p className="text-[10px] leading-[26px] text-ink-2">{c.method}</p>
               </div>
-              <img alt="" src={caretRight} className="size-2" />
+              <img alt="" src={caretRightSmall} className="w-[5px] h-[9px]" />
             </div>
           </button>
         ))}

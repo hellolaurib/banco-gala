@@ -2,7 +2,7 @@ import { useState } from 'react'
 import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
-import { magnifyingGlass, caretRight } from '../assets/figma/index.js'
+import { magnifyingGlass, caretRightSmall } from '../assets/figma/index.js'
 
 // Traced 1:1 from the Figma "Inscribir producto" frame (375×864) — step 2 of
 // adding a new account (after picking Colombia in PaisSelector). Replaces
@@ -87,7 +87,7 @@ export default function NuevaCuenta({ onBack, onContinue, banco, onBancoClick })
               <span className={`text-[14px] ${banco ? 'text-principal' : 'text-principal/80'}`}>
                 {banco || 'Selecciona tu banco'}
               </span>
-              <img alt="" src={caretRight} className="size-2 rotate-90" />
+              <img alt="" src={caretRightSmall} className="w-[5px] h-[9px] rotate-90" />
             </button>
           </div>
 
