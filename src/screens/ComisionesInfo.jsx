@@ -1,6 +1,8 @@
+import { COMMISSION_RATE } from '../data/contacts.js'
+
 // Bottom sheet explaining the transfer commission — opened by tapping the
-// info icon next to "Comisiones" in Confirmación / Recibo. Not from Figma;
-// built to match the app's existing bottom-sheet pattern (EnviaRecibe.jsx).
+// info icon next to "Comisiones" in Envío / Confirmación / Recibo. Not from
+// Figma; built to match the app's existing bottom-sheet pattern (EnviaRecibe.jsx).
 export default function ComisionesInfo({ onClose }) {
   return (
     <div className="absolute inset-0 z-20">
@@ -22,7 +24,7 @@ export default function ComisionesInfo({ onClose }) {
           <div className="mt-4 flex flex-col gap-3">
             <div className="flex justify-between text-[14px]">
               <span className="text-ink-2">Comisión de Banco GALA</span>
-              <span className="font-medium">0.3% del monto</span>
+              <span className="font-medium">{(COMMISSION_RATE * 100).toFixed(1)}% del monto</span>
             </div>
             <div className="flex justify-between text-[14px]">
               <span className="text-ink-2">Tasa de cambio</span>

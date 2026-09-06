@@ -2,13 +2,14 @@ import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TransferDetails from '../components/TransferDetails.jsx'
 import { vectorDivider } from '../assets/figma/index.js'
+import { COMMISSION_RATE } from '../data/contacts.js'
 
 // Traced from the Figma "Popup" frame 23:1856 — "Datos de la transferencia"
 // review step, added by Laura after the first pass. Real amount/contact
 // come from the flow's own state instead of Figma's sample "$1,200".
 export default function Confirmacion({ contact, amount, onConfirm, onCancel, onInfoClick }) {
   const total = Number(amount) || 0
-  const commission = total * 0.003
+  const commission = total * COMMISSION_RATE
   const netTotal = total - commission
 
   return (

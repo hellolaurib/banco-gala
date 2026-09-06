@@ -2,7 +2,7 @@ import StatusBar from '../components/StatusBar.jsx'
 import ScreenHeader from '../components/ScreenHeader.jsx'
 import TabBar from '../components/TabBar.jsx'
 import { magnifyingGlass, arrowTransfer, repeat, infoIcon } from '../assets/figma/index.js'
-import { CONVERSION } from '../data/contacts.js'
+import { CONVERSION, COMMISSION_RATE } from '../data/contacts.js'
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫']
 const RATE = Number(CONVERSION.compra.replace('.', ''))
@@ -10,9 +10,12 @@ const RATE = Number(CONVERSION.compra.replace('.', ''))
 // Traced 1:1 from the Figma "Envio" frame (375×864) — Laura reworked this
 // screen so the amount is entered in USD and converted to COP for the
 // recipient, replacing the first pass's COP-only entry.
-export default function Envio({ contact, amount, onDigit, onBackspace, onSend, onBack }) {
-  const usd = amount ? Number(amount).toLocaleString('es-CO') : '0'
-  const cop = amount ? (Number(amount) * RATE).toLocaleString('es-CO') : '0'
+export default function Envio({ contact, amount, onDigit, onBackspace, onSend, onBack, onInfoClick }) {
+  const total = Number(amount) || 0
+  const commission = total * COMMISSION_RATE
+  const netUsd = total - commission
+  const usd = amount ? total.toLocaleString('es-CO') : '0'
+  const cop = amount ? (netUsd * RATE).toLocaleString('es-CO', { maximumFractionDigits: 0 }) : '0'
 
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">
@@ -48,9 +51,12 @@ export default function Envio({ contact, amount, onDigit, onBackspace, onSend, o
             {usd} <span className="text-[24px] align-top">USD</span>
           </p>
           <div className="flex items-center gap-1.5">
-            <p className="text-[10px] text-ink-3 text-center">Tu destinatario recibirá ${cop} COP</p>
-            <img alt="" src={infoIcon} className="size-3" />
+            <p className="text-[10px] text-ink-3 text-center">Comisión (0.3%): ${commission.toFixed(2)} USD</p>
+            <button onClick={onInfoClick} aria-label="¿Qué son las comisiones?">
+              <img alt="" src={infoIcon} className="size-3" />
+            </button>
           </div>
+          <p className="text-[10px] text-ink-3 text-center">Tu destinatario recibirá ${cop} COP</p>
         </div>
 
         <div className="absolute bg-white border-[0.5px] border-principal flex items-center gap-1.5 h-9 left-[116px] pl-3 pr-9 py-[17px] rounded-[41px] top-[281px] w-[139px] whitespace-nowrap">

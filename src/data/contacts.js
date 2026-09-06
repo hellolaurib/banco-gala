@@ -11,3 +11,7 @@ export const RECENT_TRANSFERS = [
 ]
 
 export const CONVERSION = { par: 'USDc/COP', change: '+15%', venta: '3.200', compra: '3.100' }
+
+// Banco GALA's transfer commission — shown in the Envío calculator and in
+// the Confirmación/Recibo breakdown, explained in ComisionesInfo.jsx.
+export const COMMISSION_RATE = 0.003

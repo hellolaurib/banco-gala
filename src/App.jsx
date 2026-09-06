@@ -75,6 +75,7 @@ export default function App() {
           onBackspace={() => setAmount((a) => a.slice(0, -1))}
           onBack={() => setScreen('transferencia')}
           onSend={() => amount && setScreen('confirmacion')}
+          onInfoClick={() => setComisionesOpen(true)}
         />
       )}
 
