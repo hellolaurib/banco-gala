@@ -4,7 +4,7 @@ const today = new Date().toLocaleDateString('es-CO', { day: '2-digit', month: '2
 
 // "Datos de la transferencia" rows — shared by the Confirmación and Recibo
 // screens (traced from Figma nodes 23:1865 / 23:2204).
-export default function TransferDetails({ contact, amount, commission, total, onInfoClick }) {
+export default function TransferDetails({ contact, amount, commission, total, currencyCode, onInfoClick }) {
   return (
     <div className="flex flex-col gap-[23px] items-start w-full">
       <Row label="Destinatario" value={contact?.name ?? '—'} />
@@ -23,7 +23,9 @@ export default function TransferDetails({ contact, amount, commission, total, on
       <div className="flex flex-col gap-[17px] items-start w-full">
         <div className="flex justify-between items-center w-full">
           <p className="text-[14px] font-semibold text-principal opacity-93">*Valor total</p>
-          <p className="text-[14px] font-semibold text-positive text-right">${total.toFixed(2)} USD</p>
+          <p className="text-[14px] font-semibold text-positive text-right">
+            ${total.toLocaleString('es-CO')} {currencyCode}
+          </p>
         </div>
         <p className="text-[9px] leading-[15px] text-ink-3 opacity-93">
           *Este es el valor que recibirá tu destinatario después de comisiones

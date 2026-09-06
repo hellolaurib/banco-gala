@@ -7,10 +7,14 @@ import { COMMISSION_RATE } from '../data/contacts.js'
 // Traced from the Figma "Popup" frame 23:1856 — "Datos de la transferencia"
 // review step, added by Laura after the first pass. Real amount/contact
 // come from the flow's own state instead of Figma's sample "$1,200".
-export default function Confirmacion({ contact, amount, onConfirm, onCancel, onInfoClick }) {
+export default function Confirmacion({ contact, amount, currency, onConfirm, onCancel, onInfoClick }) {
   const total = Number(amount) || 0
   const commission = total * COMMISSION_RATE
-  const netTotal = total - commission
+  const netUsd = total - commission
+  // Same conversion as Envío's calculator — "Valor total" here must match
+  // what that screen already promised the recipient would get, not the
+  // leftover USD amount.
+  const recipientAmount = Math.round(netUsd * currency.rate)
 
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">
@@ -42,7 +46,8 @@ export default function Confirmacion({ contact, amount, onConfirm, onCancel, onI
             contact={contact}
             amount={total}
             commission={commission}
-            total={netTotal}
+            total={recipientAmount}
+            currencyCode={currency.code}
             onInfoClick={onInfoClick}
           />
         </div>

@@ -6,10 +6,14 @@ import { COMMISSION_RATE } from '../data/contacts.js'
 // Traced from the Figma "Popup" frame 23:2195 — the success/receipt step
 // added by Laura, shown right after confirming. Real amount/contact come
 // from the flow's own state instead of Figma's sample "$1,200".
-export default function Recibo({ contact, amount, onVerEstado, onDescargar, onInfoClick }) {
+export default function Recibo({ contact, amount, currency, onVerEstado, onDescargar, onInfoClick }) {
   const total = Number(amount) || 0
   const commission = total * COMMISSION_RATE
-  const netTotal = total - commission
+  const netUsd = total - commission
+  // Same conversion as Envío's calculator — "Valor total" here must match
+  // what that screen already promised the recipient would get, not the
+  // leftover USD amount.
+  const recipientAmount = Math.round(netUsd * currency.rate)
 
   return (
     <div className="bg-white relative w-full h-[864px] overflow-hidden">
@@ -40,7 +44,8 @@ export default function Recibo({ contact, amount, onVerEstado, onDescargar, onIn
             contact={contact}
             amount={total}
             commission={commission}
-            total={netTotal}
+            total={recipientAmount}
+            currencyCode={currency.code}
             onInfoClick={onInfoClick}
           />
         </div>

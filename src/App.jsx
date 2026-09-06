@@ -139,6 +139,7 @@ export default function App() {
         <Confirmacion
           contact={contact}
           amount={amount}
+          currency={currency}
           onConfirm={() => setScreen('recibo')}
           onCancel={reset}
           onInfoClick={() => setComisionesOpen(true)}
@@ -149,6 +150,7 @@ export default function App() {
         <Recibo
           contact={contact}
           amount={amount}
+          currency={currency}
           onVerEstado={() => {
             setSelectedTransfer(buildTransferStatus(contact, amount))
             setScreen('estadoTransferencia')
