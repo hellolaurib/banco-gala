@@ -6,6 +6,7 @@ import EnviaRecibe from './screens/EnviaRecibe.jsx'
 import Transferencia from './screens/Transferencia.jsx'
 import Envio from './screens/Envio.jsx'
 import Confirmacion from './screens/Confirmacion.jsx'
+import Cargando from './screens/Cargando.jsx'
 import Recibo from './screens/Recibo.jsx'
 import EstadoTransferencia from './screens/EstadoTransferencia.jsx'
 import ComisionesInfo from './screens/ComisionesInfo.jsx'
@@ -140,10 +141,14 @@ export default function App() {
           contact={contact}
           amount={amount}
           currency={currency}
-          onConfirm={() => setScreen('recibo')}
+          onConfirm={() => setScreen('cargando')}
           onCancel={reset}
           onInfoClick={() => setComisionesOpen(true)}
         />
+      )}
+
+      {screen === 'cargando' && (
+        <Cargando contact={contact} amount={amount} onDone={() => setScreen('recibo')} />
       )}
 
       {screen === 'recibo' && (

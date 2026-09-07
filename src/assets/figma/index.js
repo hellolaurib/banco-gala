@@ -33,6 +33,7 @@ import flagUsa from './flag-usa.png'
 import flagEurope from './flag-europe.png'
 import flagBrazil from './flag-brazil.png'
 import caretRightSmall from './caret-vector.svg'
+import spinner from './spinner.svg'
 
 export {
   statusBattery,
@@ -68,4 +69,5 @@ export {
   flagEurope,
   flagBrazil,
   caretRightSmall,
+  spinner,
 }
